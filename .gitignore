@@ -1,0 +1,7 @@
+backup/*
+site-lisp/*
+elpa/*
+ac-comphist.dat
+auto-save-list
+undohist
+!.gitkeep
