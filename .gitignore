@@ -1,6 +1,16 @@
+<<<<<<< HEAD
 ac-comphist.dat
 auto-save-list
 /backup/*
 /elpa/*
 /site-lisp/*
 undohist
+=======
+backup/*
+site-lisp/*
+elpa/*
+ac-comphist.dat
+auto-save-list
+undohist
+!.gitkeep
+>>>>>>> b43362cdf4966dc70909bbb6d8721657d47a0c7f
