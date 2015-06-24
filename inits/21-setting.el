@@ -125,3 +125,8 @@
 (use-package point-undo
   :bind (("M-u" . point-undo)
 	 ("M-r" . point-redo)))
+
+(use-package magit
+  :config
+  (setq magit-auto-revert-mode nil)
+  (setq magit-last-seen-setup-instructions "1.4.0"))

@@ -34,6 +34,7 @@
     yascroll
     undohist
     point-undo
+    magit
     ))
 
 (let ((not-installed (loop for x in installing-package-list
