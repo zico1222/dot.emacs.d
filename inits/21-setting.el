@@ -12,6 +12,8 @@
 (setq linum-format "%4d ")
 (set-face-attribute 'linum nil
                     :foreground "lightgreen")
+(custom-set-faces
+ '(default ((t (:family "RictyDiminished" :boundry "unknown" :height 130)))))
 (menu-bar-mode -1)
 
 ;; mouse
@@ -51,7 +53,8 @@
 (use-package yatex
   :config
   (setq YaTeX-kanji-code 4)
-  (add-hook 'yatex-mode-hook '(lambda () (auto-fill-mode -1))))
+  (add-hook 'yatex-mode-hook '(lambda () (auto-fill-mode -1)))
+  :mode (("\\.tex\\'" . yatex-mode)))
 
 (use-package hlinum
   :config
@@ -125,3 +128,8 @@
 (use-package point-undo
   :bind (("M-u" . point-undo)
 	 ("M-r" . point-redo)))
+
+(use-package magit
+  :config
+  (setq magit-auto-revert-mode nil)
+  (setq magit-last-seen-setup-instructions "1.4.0"))
