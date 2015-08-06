@@ -54,6 +54,7 @@
   :config
   (setq YaTeX-kanji-code 4)
   (add-hook 'yatex-mode-hook '(lambda () (auto-fill-mode -1)))
+  (setq tex-command "platex -shell-escape")
   :mode (("\\.tex\\'" . yatex-mode)))
 
 (use-package hlinum
