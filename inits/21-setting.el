@@ -4,7 +4,8 @@
  '(global-linum-mode t)
  '(scroll-up-aggressively nil)
  '(scroll-step 0)
- '(inhibit-startup-screen t))
+ '(inhibit-startup-screen t)
+ '(coq-prog-args '("-I" "~/cpdt/src")))
 (load-theme 'zenburn t)
 (set-frame-parameter nil 'alpha 90)
 (setq x-select-enable-clipboard t)
@@ -39,9 +40,6 @@
     (cua-set-mark)))
 (define-key global-map (kbd "C-@") 'my/rectangle-region)
 
-;; scroll in one line
-(setq scroll-conservatively 35)
-
 ;; packages
 (require 'use-package)
 
@@ -65,14 +63,10 @@
   (set-face-foreground 'whitespace-space "DarkGoldenrod1")
   (set-face-background 'whitespace-space nil)
   (set-face-bold-p 'whitespace-space t)
-  (set-face-foreground 'whitespace-tab "DarkOliveGreen1")
-  (set-face-background 'whitespace-tab nil)
-  (set-face-underline  'whitespace-tab t)
   (setq whitespace-style '(face tabs tab-mark spaces space-mark))
   (setq whitespace-space-regexp "\\(\x3000+\\)")
   (setq whitespace-display-mappings
-	'((space-mark ?\u3000 [?\u25a1])
-	  (tab-mark   ?\t   [?\xBB ?\t])))
+	'((space-mark ?\u3000 [?\u25a1])))
   (global-whitespace-mode 1))
 
 (use-package markdown-mode
@@ -129,7 +123,6 @@
   :bind (("M-u" . point-undo)
 	 ("M-r" . point-redo)))
 
-(use-package magit
-  :config
-  (setq magit-auto-revert-mode nil)
-  (setq magit-last-seen-setup-instructions "1.4.0"))
+(use-package coq-mode
+  :config   ((coq-mode . ((coq-prog-args . ("-emacs-U" "-I" "~/cpdt//src")))))
+  :mode (("\\.v\\'" . coq-mode)))
