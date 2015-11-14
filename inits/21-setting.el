@@ -16,11 +16,19 @@
 (custom-set-faces
  '(default ((t (:family "RictyDiminished" :boundry "unknown" :height 130)))))
 (menu-bar-mode -1)
+(column-number-mode t)
+(setq linum-delay t)
+(defadvice linum-schedule (around my-linum-schedule () activate)
+    (run-with-idle-timer 0.2 nil #'linum-update-current))
 
-;; mouse
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+;; mouse and sroll
+(xterm-mouse-mode t)
+(mouse-wheel-mode t)
+(global-set-key	  [mouse-4] '(lambda () (interactive) (scroll-down 1)))
+(global-set-key	  [mouse-5] '(lambda () (interactive) (scroll-up   1)))
+(setq scroll-conservatively 35
+      scroll-margin 0
+        scroll-step 1)
 
 ;; backup file
 (setq backup-directory-alist
@@ -110,10 +118,6 @@
 (use-package volatile-highlights
   :config
   (volatile-highlights-mode t))
-
-(use-package yascroll
-  :config
-  (global-yascroll-bar-mode 1))
 
 (use-package undohist
   :config
