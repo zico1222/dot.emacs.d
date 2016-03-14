@@ -30,7 +30,6 @@
     anzu
     volatile-highlights
     powerline
-    smooth-scroll
     yascroll
     undohist
     point-undo
