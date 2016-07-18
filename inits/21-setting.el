@@ -16,6 +16,8 @@
 (custom-set-faces
  '(default ((t (:family "RictyDiminished" :boundry "unknown" :height 130)))))
 (menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;; mouse
 (xterm-mouse-mode t)
