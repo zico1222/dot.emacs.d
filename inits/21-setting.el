@@ -4,8 +4,7 @@
  '(global-linum-mode t)
  '(scroll-up-aggressively nil)
  '(scroll-step 0)
- '(inhibit-startup-screen t)
- '(coq-prog-args '("-I" "~/cpdt/src")))
+ '(inhibit-startup-screen t))
 (load-theme 'zenburn t)
 (set-frame-parameter nil 'alpha 90)
 (setq x-select-enable-clipboard t)
@@ -127,6 +126,6 @@
   :bind (("M-u" . point-undo)
 	 ("M-r" . point-redo)))
 
-(use-package coq-mode
-  :config   ((coq-mode . ((coq-prog-args . ("-emacs-U" "-I" "~/cpdt//src")))))
-  :mode (("\\.v\\'" . coq-mode)))
+(use-package undo-tree
+  :config
+    (global-undo-tree-mode t))
