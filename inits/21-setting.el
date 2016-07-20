@@ -15,24 +15,19 @@
 (custom-set-faces
  '(default ((t (:family "RictyDiminished" :boundry "unknown" :height 130)))))
 (menu-bar-mode -1)
-(column-number-mode t)
-(setq linum-delay t)
-(defadvice linum-schedule (around my-linum-schedule () activate)
-    (run-with-idle-timer 0.2 nil #'linum-update-current))
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 
-;; mouse and sroll
+;; mouse
 (xterm-mouse-mode t)
+(require 'mouse)
+(require 'mwheel)
 (mouse-wheel-mode t)
-(global-set-key	  [mouse-4] '(lambda () (interactive) (scroll-down 1)))
-(global-set-key	  [mouse-5] '(lambda () (interactive) (scroll-up   1)))
-(setq scroll-conservatively 35
-      scroll-margin 0
-        scroll-step 1)
 
 ;; backup file
 (setq backup-directory-alist
       (cons (cons ".*" (expand-file-name "~/.emacs.d/backup/"))
-	    backup-directory-alist))
+            backup-directory-alist))
 (setq auto-save-file-name-transforms
       `((".*", (expand-file-name "~/.emacs.d/backup/") t)))
 
@@ -67,19 +62,23 @@
 
 (use-package whitespace
   :config
+  (setq-default tab-width 2 indent-tabs-mode nil)
   (set-face-foreground 'whitespace-space "DarkGoldenrod1")
   (set-face-background 'whitespace-space nil)
   (set-face-bold-p 'whitespace-space t)
-  (setq whitespace-style '(face tab-mark spaces space-mark))
+  (set-face-foreground 'whitespace-tab "DarkOliveGreen1")
+  (set-face-background 'whitespace-tab nil)
+  (set-face-underline  'whitespace-tab t)
+  (setq whitespace-style '(face tabs tab-mark spaces space-mark))
   (setq whitespace-space-regexp "\\(\x3000+\\)")
   (setq whitespace-display-mappings
-	'((space-mark ?\u3000 [?\u25a1])))
+        '((space-mark ?\u3000 [?\u25a1])))
   (global-whitespace-mode 1))
 
 (use-package markdown-mode
   :mode (("\\.txt\\'" . markdown-mode)
-	 ("\\.markdown\\'" . markdown-mode)
-	 ("\\.md\\'" . markdown-mode)))
+         ("\\.markdown\\'" . markdown-mode)
+         ("\\.md\\'" . markdown-mode)))
 
 (use-package tramp
   :config
@@ -92,10 +91,10 @@
 
 (use-package helm-mode
   :bind (("M-x" . helm-M-x)
-	 ("C-x C-f" . helm-find-files)
-	 ("M-y" . helm-show-kill-ring)
-	 ("C-x C-r" . helm-recentf)
-	 ("C-x b" . helm-buffers-list)))
+         ("C-x C-f" . helm-find-files)
+         ("M-y" . helm-show-kill-ring)
+         ("C-x C-r" . helm-recentf)
+         ("C-x b" . helm-buffers-list)))
 
 (use-package smartparens-config
   :config
@@ -108,7 +107,7 @@
 
 (use-package move-text
   :bind (("M-<up>" . move-text-up)
-	 ("M-<down>" . move-text-down)))
+         ("M-<down>" . move-text-down)))
 
 (use-package anzu
   :config
@@ -118,13 +117,17 @@
   :config
   (volatile-highlights-mode t))
 
+(use-package yascroll
+  :config
+  (global-yascroll-bar-mode 1))
+
 (use-package undohist
   :config
   (undohist-initialize))
 
 (use-package point-undo
   :bind (("M-u" . point-undo)
-	 ("M-r" . point-redo)))
+         ("M-r" . point-redo)))
 
 (use-package undo-tree
   :config
