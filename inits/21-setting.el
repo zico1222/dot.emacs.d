@@ -17,6 +17,7 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(column-number-mode t)
 
 ;; mouse
 (xterm-mouse-mode t)
@@ -41,6 +42,9 @@
       (cua-set-rectangle-mark)
     (cua-set-mark)))
 (define-key global-map (kbd "C-@") 'my/rectangle-region)
+
+;; delete trailing whitespace automatically
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; packages
 (require 'use-package)
