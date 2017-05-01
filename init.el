@@ -14,7 +14,6 @@
 (defvar installing-package-list
   '(
     init-loader
-    el-get
     use-package
     auto-complete
     markdown-mode
@@ -30,12 +29,12 @@
     anzu
     volatile-highlights
     powerline
-    yascroll
     undohist
     point-undo
     tuareg
     undo-tree
     yaml-mode
+    auctex
     ))
 
 (let ((not-installed (loop for x in installing-package-list
@@ -46,8 +45,28 @@
     (dolist (pkg not-installed)
       (package-install pkg))))
 
-;;(el-get-bundle gist:1776988:sense-region)
-
 (require 'init-loader)
 (setq init-loader-show-log-after-init nil)
 (init-loader-load "~/.emacs.d/inits")
+;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
+(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
+;; ## end of OPAM user-setup addition for emacs / base ## keep this line
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(global-linum-mode t)
+ '(inhibit-startup-screen t)
+ '(package-selected-packages
+   (quote
+    (auctex zenburn-theme yascroll yaml-mode volatile-highlights use-package undohist undo-tree tuareg solarized-theme smartparens rainbow-delimiters powerline point-undo move-text markdown-mode init-loader hlinum helm haskell-mode flycheck el-get auto-complete anzu)))
+ '(scroll-step 0)
+ '(scroll-up-aggressively nil)
+ '(show-paren-mode t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "RictyDiminished" :boundry "unknown" :height 130)))))

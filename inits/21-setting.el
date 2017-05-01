@@ -16,7 +16,6 @@
  '(default ((t (:family "RictyDiminished" :boundry "unknown" :height 130)))))
 (menu-bar-mode -1)
 (tool-bar-mode -1)
-(scroll-bar-mode -1)
 (column-number-mode t)
 
 ;; mouse
@@ -32,17 +31,6 @@
 (setq auto-save-file-name-transforms
       `((".*", (expand-file-name "~/.emacs.d/backup/") t)))
 
-;; rectangle selection
-(cua-mode t)
-(setq cua-enable-cua-keys nil)
-(define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
-(defun my/rectangle-region ()
-  (interactive)
-  (if (region-active-p)
-      (cua-set-rectangle-mark)
-    (cua-set-mark)))
-(define-key global-map (kbd "C-@") 'my/rectangle-region)
-
 ;; delete trailing whitespace automatically
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -54,11 +42,20 @@
   (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict/")
   (ac-config-default))
 
-(use-package yatex
+(use-package tex-site
   :config
-  (setq YaTeX-kanji-code 4)
-  (add-hook 'yatex-mode-hook '(lambda () (auto-fill-mode -1)))
-  :mode (("\\.tex\\'" . yatex-mode)))
+  (setq TeX-default-mode 'japanese-latex-mode)
+  (setq japanese-LaTeX-command-default "pLaTeX")
+  (setq LaTeX-indent-level 2)
+  (setq LaTeX-item-indent 2)
+  (add-hook 'LaTeX-mode-hook
+            (function (lambda ()
+                        (add-to-list 'TeX-command-list
+                                     '("pLaTeX" "%(PDF)platex %`%S%(PDFout)%(mode)%' %t"
+                                       TeX-run-TeX nil (latex-mode) :help "Run ASCII pLaTeX"))
+                        (add-to-list 'TeX-command-list
+                                     '("pdf" "dvipdfmx -V 4 '%s' " TeX-run-command t nil))
+                        ))))
 
 (use-package hlinum
   :config
@@ -83,11 +80,6 @@
   :mode (("\\.txt\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode)
          ("\\.md\\'" . markdown-mode)))
-
-(use-package tramp
-  :config
-  (setq tramp-default-method "ssh")
-  (setq tramp-shell-prompt-pattern "^.*[#$%>] *"))
 
 (use-package flycheck
   :init
@@ -121,10 +113,6 @@
   :config
   (volatile-highlights-mode t))
 
-(use-package yascroll
-  :config
-  (global-yascroll-bar-mode 1))
-
 (use-package undohist
   :config
   (undohist-initialize))
@@ -135,4 +123,4 @@
 
 (use-package undo-tree
   :config
-    (global-undo-tree-mode t))
+  (global-undo-tree-mode t))
