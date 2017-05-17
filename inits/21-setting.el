@@ -42,20 +42,35 @@
   (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict/")
   (ac-config-default))
 
+;; auctex
 (use-package tex-site
   :config
+  (require 'tex-jp)
+  (defun replace-dot-comma ()
+    "s/。/．/g; s/、/，/g;する"
+    (interactive)
+    (let ((curpos (point)))
+      (goto-char (point-min))
+      (while (search-forward "。" nil t) (replace-match "．"))
+      (goto-char (point-min))
+      (while (search-forward "、" nil t) (replace-match "，"))
+      (goto-char curpos)
+      ))
   (setq TeX-default-mode 'japanese-latex-mode)
+  (setq TeX-engine-alist '((platex "pLaTeX" "platex -shell-escape %S" "platex -shell-escape %S" "")))
+  (setq japanese-TeX-engine-default 'platex)
+  (setq-default TeX-engine 'platex)
+  (setq japanese-TeX-command-default "pTeX")
   (setq japanese-LaTeX-command-default "pLaTeX")
-  (setq LaTeX-indent-level 2)
-  (setq LaTeX-item-indent 2)
+  (setq LaTeX-parse-self t)
+  (setq LaTeX-auto-save  t)
   (add-hook 'LaTeX-mode-hook
             (function (lambda ()
                         (add-to-list 'TeX-command-list
-                                     '("pLaTeX" "%(PDF)platex %`%S%(PDFout)%(mode)%' %t"
-                                       TeX-run-TeX nil (latex-mode) :help "Run ASCII pLaTeX"))
+                                     '("evince" "evince '%s.pdf' " TeX-run-command t nil))
                         (add-to-list 'TeX-command-list
                                      '("pdf" "dvipdfmx -V 4 '%s' " TeX-run-command t nil))
-                        ))))
+                        (add-hook 'before-save-hook 'replace-dot-comma nil 'make-it-local)))))
 
 (use-package hlinum
   :config

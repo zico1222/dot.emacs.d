@@ -7,3 +7,4 @@ undohist
 !.gitkeep
 abbrev_defs
 opam-user-setup.el
+*.elc
