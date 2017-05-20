@@ -24,6 +24,16 @@
 (require 'mwheel)
 (mouse-wheel-mode t)
 
+;; rectangle editing
+(cua-mode t)
+(setq cua-enable-cua-keys nil)
+(defun my/rectangle-region ()
+  (interactive)
+  (if (region-active-p)
+      (cua-set-rectangle-mark)
+    (cua-set-mark)))
+(bind-key* "C-@" 'my/rectangle-region)
+
 ;; backup file
 (setq backup-directory-alist
       (cons (cons ".*" (expand-file-name "~/.emacs.d/backup/"))
