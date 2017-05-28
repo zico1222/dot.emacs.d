@@ -24,16 +24,6 @@
 (require 'mwheel)
 (mouse-wheel-mode t)
 
-;; rectangle editing
-(cua-mode t)
-(setq cua-enable-cua-keys nil)
-(defun my/rectangle-region ()
-  (interactive)
-  (if (region-active-p)
-      (cua-set-rectangle-mark)
-    (cua-set-mark)))
-(bind-key* "C-@" 'my/rectangle-region)
-
 ;; backup file
 (setq backup-directory-alist
       (cons (cons ".*" (expand-file-name "~/.emacs.d/backup/"))
@@ -51,6 +41,16 @@
   :config
   (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict/")
   (ac-config-default))
+
+;; rectangle editing
+(defun my/set-mark-command ()
+  (interactive)
+  (if (bound-and-true-p rectangle-mark-mode)
+      (rectangle-mark-mode -1)
+    (if (region-active-p)
+        (rectangle-mark-mode 1)
+      (set-mark (point)))))
+(bind-key "C-@" 'my/set-mark-command)
 
 ;; auctex
 (use-package tex-site
