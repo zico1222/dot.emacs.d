@@ -5,15 +5,15 @@
  '(scroll-up-aggressively nil)
  '(scroll-step 0)
  '(inhibit-startup-screen t))
-(load-theme 'zenburn t)
-(set-frame-parameter nil 'alpha 90)
-(setq x-select-enable-clipboard t)
-(setq-default tramp-persistency-file-name nil)
-(setq linum-format "%4d ")
-(set-face-attribute 'linum nil
-                    :foreground "lightgreen")
-(custom-set-faces
- '(default ((t (:family "RictyDiminished" :boundry "unknown" :height 130)))))
+;;(load-theme 'zenburn t)
+;;(set-frame-parameter nil 'alpha 90)
+;;(setq x-select-enable-clipboard t)
+;;(setq-default tramp-persistency-file-name nil)
+;;(setq linum-format "%4d ")
+;;(set-face-attribute 'linum nil
+;;                    :foreground "lightgreen")
+;;(custom-set-faces
+;; '(default ((t (:family "RictyDiminished" :boundry "unknown" :height 130)))))
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (column-number-mode t)
@@ -74,6 +74,10 @@
       (while (search-forward "、" nil t) (replace-match "，"))
       (goto-char curpos)
       ))
+  (setq TeX-view-program-selection '((output-pdf "Evince")))
+  (setq TeX-source-correlate-method 'synctex)
+  (setq TeX-source-correlate-start-server t)
+  (setq TeX-source-correlate-mode t)
   (setq TeX-default-mode 'japanese-latex-mode)
   (setq TeX-engine-alist '((platex "pLaTeX" "platex -shell-escape %S" "platex -shell-escape %S" "")))
   (setq japanese-TeX-engine-default 'platex)
@@ -85,14 +89,19 @@
   (add-hook 'LaTeX-mode-hook
             (function (lambda ()
                         (add-to-list 'TeX-command-list
-                                     '("evince" "evince '%s.pdf' " TeX-run-command t nil))
+                                     '("Evince" "evince '%s.pdf' " TeX-run-command t nil))
                         (add-to-list 'TeX-command-list
-                                     '("pdf" "dvipdfmx -V 4 '%s' " TeX-run-command t nil))
+                                     '("Pdf" "dvipdfmx -V 4 '%s' " TeX-run-command t nil))
+			(add-to-list 'TeX-command-list
+				     '("Evince"
+					;"synctex view -i \"%n:0:%b\" -o %s.pdf -x \"evince -i %%{page+1} %%{output}\""
+				       "TeX-evince-sync-view"
+				       TeX-run-discard-or-function t t :help "Forward search with Evince"))
                         (add-hook 'before-save-hook 'replace-dot-comma nil 'make-it-local)))))
 
-(use-package hlinum
-  :config
-  (hlinum-activate))
+;; (use-package hlinum
+;;   :config
+;;   (hlinum-activate))
 
 ;;(use-package whitespace
 ;;  :config

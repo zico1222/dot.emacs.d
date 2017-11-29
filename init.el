@@ -35,6 +35,7 @@
     undo-tree
     yaml-mode
     auctex
+    dracula-theme
     ))
 
 (let ((not-installed (loop for x in installing-package-list
@@ -71,3 +72,25 @@
 ;; ;; Your init file should contain only one such instance.
 ;; ;; If there is more than one, they won't work right.
 ;; '(default ((t (:family "RictyDiminished" :boundry "unknown" :height 130)))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("f5512c02e0a6887e987a816918b7a684d558716262ac7ee2dd0437ab913eaec6" "ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb" default)))
+ '(global-linum-mode t)
+ '(inhibit-startup-screen t)
+ '(package-selected-packages
+   (quote
+    (dracula-theme zenburn-theme yascroll yaml-mode volatile-highlights use-package undohist undo-tree tuareg solarized-theme smartparens rainbow-delimiters powerline point-undo move-text markdown-mode init-loader hlinum helm haskell-mode flycheck el-get auto-complete auctex anzu)))
+ '(scroll-step 0)
+ '(scroll-up-aggressively nil)
+ '(show-paren-mode t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
