@@ -58,6 +58,7 @@
     (if (region-active-p)
         (rectangle-mark-mode 1)
       (set-mark (point)))))
+(bind-key "C-SPC" 'my/set-mark-command)
 (bind-key "C-@" 'my/set-mark-command)
 
 ;; auctex
@@ -166,3 +167,13 @@
 (use-package undo-tree
   :config
   (global-undo-tree-mode t))
+
+(use-package mozc
+  :config
+  (set-language-environment 'Japanese)
+  (prefer-coding-system 'utf-8)
+  (setenv "LANG"  "ja_JP.UTF-8")
+  (setq default-input-method "japanese-mozc")
+  (require 'ac-mozc)
+  (define-key ac-mode-map (kbd "C-c C-\\") 'ac-complete-mozc)
+  )
